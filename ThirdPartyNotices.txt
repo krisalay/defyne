@@ -1,0 +1,6 @@
+defyne
+
+THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
+Do Not Translate or Localize
+
+This project incorporates components from the projects listed below. The original copyright notices and the licenses under which Defyne received such components are set forth below. Defyne reserves all rights not expressly granted herein, whether by implication, estoppel or otherwise.
