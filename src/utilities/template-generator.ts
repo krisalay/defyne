@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import * as filesystem from "./filesystem";
 
 import { InquirerOutput } from "../modules/common/models/choice";
@@ -12,9 +13,13 @@ export class TemplateGenerator {
     if (!fileExists) {
       return await filesystem.createFile(filepath, filenameWithExtension, fileContent);
     }
-    const override: InquirerOutput = await shouldOverride("This file already exist. Do you want to override it?");
+    const override: InquirerOutput = await shouldOverride(filenameWithExtension + " file already exist. Do you want to override it?");
     if (override.value === true) {
       return  await filesystem.createFile(filepath, filenameWithExtension, fileContent);
     }
+  }
+
+  static fill(content: string, data: { [key: string]: string }): string {
+    return _.template(content)(data);
   }
 }

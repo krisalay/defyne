@@ -8,5 +8,5 @@ export async function Defyne(): Promise<void> {
   const techStackAnswer: TechStackAnswer = await chooseTechStack();
   logger.debug("selected technology stack: " + techStackAnswer.techStack);
   const packageMetadata: PackageMetadata = await Package.init();
-  await CommonFiles.init();
+  await CommonFiles.init(packageMetadata);
 }
