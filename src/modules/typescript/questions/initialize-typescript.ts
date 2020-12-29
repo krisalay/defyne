@@ -2,6 +2,7 @@ import * as path from "path";
 
 import { TemplateGenerator } from "../../../utilities/template-generator";
 import { PackageMetadata } from "../../init/models/choice";
+import { packages, devPackages } from "../models/packages";
 import { Filename } from "../models/file";
 
 import * as filesystem from "../../../utilities/filesystem";
@@ -14,6 +15,7 @@ export class InitializeTypescript {
     await this.generateGitIgnore();
     await this.generatePrettierrc();
     await this.generateTSConfig();
+    await this.generatePackageJson(metadata);
   }
 
   private static async generateEslintrc(): Promise<void> {
@@ -52,9 +54,17 @@ export class InitializeTypescript {
     await TemplateGenerator.createDefault(filename, fileContent);
   }
 
-  // private static async generateContributing(metadata: PackageMetadata): Promise<void> {
-  //   const filename: string = Filename.CONTRIBUTING;
-  //   const fileContent: string = await filesystem.readFile(path.join(__dirname, "..","templates", "contributing.template"));
-  //   await TemplateGenerator.createDefault(filename, TemplateGenerator.fill(fileContent, { name: metadata.name }));
-  // }
+  private static async generatePackageJson(metadata: PackageMetadata): Promise<void> {
+    const filename: string = Filename.PACKAGE_JSON;
+    const fileContent: string = await filesystem.readFile(path.join(__dirname, "..","templates", "package_json.template"));
+    const parsedFileContent = JSON.parse(fileContent);
+    parsedFileContent.dependencies = packages;
+    parsedFileContent.devDependencies = devPackages;
+    await TemplateGenerator.createDefault(filename, TemplateGenerator.fill(JSON.stringify(parsedFileContent, null, 2), {
+      name: metadata.name,
+      description: metadata.description,
+      version: metadata.version,
+      author: metadata.author
+    }));
+  }
 }

@@ -1,0 +1,28 @@
+{
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "description": "<%= description %>",
+  "main": "dist/http.js",
+  "repository": "",
+  "author": "<%= author %>",
+  "license": "MIT",
+  "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier-format && npm run lint"
+    }
+  },
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint . --ext .ts",
+    "lint-and-fix": "./node_modules/.bin/eslint . --ext .ts --fix",
+    "prettier-format": "./node_modules/.bin/prettier --config .prettierrc 'src/**/*.ts' --write",
+    "build": "./node_modules/.bin/tsc",
+    "start": "node .",
+    "test": "./node_modules/.bin/jest --coverage --detectOpenHandles --forceExit --runInBand --verbose",
+    "clean:some": "rm -rf ./dist ./docs",
+    "clean:all": "rm -rf ./node_modules ./package-lock.json ./dist ./docs",
+    "refresh": "npm run clean:all && npm install"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
