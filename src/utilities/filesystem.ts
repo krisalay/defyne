@@ -31,3 +31,7 @@ export const readFile = async (filepath: string): Promise<string> => {
   const content: string = await promisify(fs.readFile)(filepath, { encoding: "utf8" });
   return content;
 }
+
+export const appendFile = async (filepath: string, dataToAppend: string): Promise<void> => {
+  await promisify(fs.appendFile)(filepath, dataToAppend);
+}

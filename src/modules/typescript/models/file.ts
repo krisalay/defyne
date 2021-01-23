@@ -16,3 +16,8 @@ export enum RouteFilename {
   DECORATOR = "decorators.ts",
   INDEX = "index.ts"
 }
+
+export enum ControllerFilename {
+  INDEX = "index.ts",
+  SAMPLE_CONTROLLER = "sample-controller.ts"
+}

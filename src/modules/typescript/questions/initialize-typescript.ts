@@ -9,6 +9,7 @@ import * as filesystem from "../../../utilities/filesystem";
 
 import { Route } from "./route";
 import { Response } from "./response";
+import { Controller } from "./controllers";
 
 export class InitializeTypescript {
   public static async init(metadata: PackageMetadata): Promise<void> {
@@ -22,6 +23,7 @@ export class InitializeTypescript {
 
     await Route.init();
     await Response.generateBaseResponse();
+    await Controller.init();
   }
 
   private static async generateEslintrc(): Promise<void> {
