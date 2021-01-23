@@ -7,3 +7,7 @@ export enum Filename {
   PACKAGE_JSON = "package.json",
   TSCONFIG = "tsconfig.json"
 }
+
+export enum ResponseFilename {
+  BASE_RESPONSE = "base-response.ts"
+}
