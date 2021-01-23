@@ -2,7 +2,7 @@
   "name": "<%= name %>",
   "version": "<%= version %>",
   "description": "<%= description %>",
-  "main": "dist/http.js",
+  "main": "lib/http.js",
   "repository": "",
   "author": "<%= author %>",
   "license": "MIT",

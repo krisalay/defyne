@@ -11,7 +11,8 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "importHelpers": true,
-    "removeComments": true
+    "removeComments": true,
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules",

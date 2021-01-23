@@ -38,7 +38,7 @@ export class Controller {
   private static async updateIndex(controllerName: string): Promise<void> {
     const filename: string = ControllerFilename.INDEX;
     const file: string = await filesystem.readFile(path.join(".", this.dir, filename));
-    let fileContent = `import * from "./${controllerName}";`;
+    let fileContent = `export * from "./${controllerName}";`;
     if (file.length) {
       fileContent = "\n" + fileContent;
     }

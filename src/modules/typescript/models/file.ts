@@ -5,7 +5,9 @@ export enum Filename {
   GIT_IGNORE = ".gitignore",
   PRETTIERRC = ".pretterrc",
   PACKAGE_JSON = "package.json",
-  TSCONFIG = "tsconfig.json"
+  TSCONFIG = "tsconfig.json",
+  HTTP = "http.ts",
+  DOTENV = ".env"
 }
 
 export enum ResponseFilename {
@@ -20,4 +22,8 @@ export enum RouteFilename {
 export enum ControllerFilename {
   INDEX = "index.ts",
   SAMPLE_CONTROLLER = "sample-controller.ts"
+}
+
+export enum PolicyFilename {
+  INDEX = "index.ts"
 }

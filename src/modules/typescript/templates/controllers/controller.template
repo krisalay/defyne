@@ -4,47 +4,47 @@ import { get, post, patch, put, del } from "../routes/decorators";
 
 export class <%= name %>Controller {
   @get({ endpoint: "<%= endpoint %>" })
-  private get<%= name %>(req: Request, res: Response, next: NextFunction): Response {
+  private get<%= name %>(req: Request, res: Response, next: NextFunction): Response | void {
     try {
       return res.status(httpStatus.OK).send()
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
   @post({ endpoint: "<%= endpoint %>" })
-  private post<%= name %>(req: Request, res: Response, next: NextFunction): Response {
+  private post<%= name %>(req: Request, res: Response, next: NextFunction): Response | void {
     try {
       return res.status(httpStatus.CREATED).send()
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
   @patch({ endpoint: "<%= endpoint %>" })
-  private patch<%= name %>(req: Request, res: Response, next: NextFunction): Response {
+  private patch<%= name %>(req: Request, res: Response, next: NextFunction): Response | void {
     try {
       return res.status(httpStatus.OK).send()
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
   @put({ endpoint: "<%= endpoint %>" })
-  private put<%= name %>(req: Request, res: Response, next: NextFunction): Response {
+  private put<%= name %>(req: Request, res: Response, next: NextFunction): Response | void {
     try {
       return res.status(httpStatus.OK).send()
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
   @del({ endpoint: "<%= endpoint %>" })
-  private delete<%= name %>(req: Request, res: Response, next: NextFunction): Response {
+  private delete<%= name %>(req: Request, res: Response, next: NextFunction): Response | void {
     try {
       return res.status(httpStatus.OK).send()
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 }
