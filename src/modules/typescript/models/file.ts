@@ -11,3 +11,8 @@ export enum Filename {
 export enum ResponseFilename {
   BASE_RESPONSE = "base-response.ts"
 }
+
+export enum RouteFilename {
+  DECORATOR = "decorators.ts",
+  INDEX = "index.ts"
+}

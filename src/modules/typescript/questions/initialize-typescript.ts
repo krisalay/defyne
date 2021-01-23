@@ -7,6 +7,9 @@ import { Filename } from "../models/file";
 
 import * as filesystem from "../../../utilities/filesystem";
 
+import { Route } from "./route";
+import { Response } from "./response";
+
 export class InitializeTypescript {
   public static async init(metadata: PackageMetadata): Promise<void> {
     await this.generateEslintrc();
@@ -16,6 +19,9 @@ export class InitializeTypescript {
     await this.generatePrettierrc();
     await this.generateTSConfig();
     await this.generatePackageJson(metadata);
+
+    await Route.init();
+    await Response.generateBaseResponse();
   }
 
   private static async generateEslintrc(): Promise<void> {
