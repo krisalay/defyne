@@ -1,6 +1,7 @@
 import * as path from "path";
 import { exec } from "child_process";
 
+import { Spinner } from "../../../utilities/cli-spinner";
 import { TemplateGenerator } from "../../../utilities/template-generator";
 import { PackageMetadata } from "../../init/models/choice";
 import { packages, devPackages } from "../models/packages";
@@ -14,35 +15,50 @@ import { Controller } from "./controllers";
 import { Policy } from "./policy";
 
 export class InitializeTypescript {
+  private static spinner: Spinner = new Spinner("Initializing project setup");
   public static async init(metadata: PackageMetadata): Promise<void> {
+    this.spinner.start();
+    this.spinner.changeText("generating .eslintrc file");
     await this.generateEslintrc();
+    this.spinner.changeText("generating .eslintignore file");
     await this.generateEslintignore();
+    this.spinner.changeText("generating .gitattributes file");
     await this.generateGitAttributes();
+    this.spinner.changeText("generating .gitignore file");
     await this.generateGitIgnore();
+    this.spinner.changeText("generating .prettierrc file");
     await this.generatePrettierrc();
+    this.spinner.changeText("generating tsconfig.json file");
     await this.generateTSConfig();
+    this.spinner.changeText("generating package.json file");
     await this.generatePackageJson(metadata);
+    this.spinner.changeText("generating .env file");
     await this.generateDotenv();
 
+    this.spinner.changeText("generating route files");
     await Route.init();
+    this.spinner.changeText("generating response helper files");
     await Response.generateBaseResponse();
+    this.spinner.changeText("generating controller files");
     await Controller.init();
+    this.spinner.changeText("generating policy files");
     await Policy.init();
+    this.spinner.changeText("generating http server");
     await this.generateHTTPServer();
-    this.installDependencies();
+    this.spinner.changeText("installing dependency");
+    await this.installDependencies();
   }
 
-  private static async installDependencies(): Promise<void> {
-    exec("npm install", (error, stdout, stderr) => {
-      if (error) {
-        console.log(`error: ${error.message}`);
-        return;
-      }
-      if (stderr) {
-          console.log(`stderr: ${stderr}`);
-          return;
-      }
-      console.log(`stdout: ${stdout}`);
+  private static installDependencies(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      exec("npm install", (error, stdout, stderr) => {
+        if (error) {
+          this.spinner.error(error.message);
+          reject(error);
+        }
+        this.spinner.succeed("dependency installation is successful");
+        resolve();
+      });
     });
   }
 

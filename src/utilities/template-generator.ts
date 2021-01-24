@@ -15,7 +15,7 @@ export class TemplateGenerator {
     }
     const override: InquirerOutput = await shouldOverride(filenameWithExtension + " file already exist. Do you want to override it?");
     if (override.value === true) {
-      return  await filesystem.createFile(filepath, filenameWithExtension, fileContent);
+      return  await filesystem.createFile(filepath, filenameWithExtension, fileContent, true);
     }
   }
 

@@ -1,6 +1,8 @@
 import fs from "fs";
 import { promisify } from "util";
 
+import * as logger from "./logger";
+
 export const checkExistence = (path: string): boolean => {
   return fs.existsSync(process.cwd() + path);
 }
@@ -17,13 +19,13 @@ export const createFile = async (filepath: string, filename: string, fileContent
   try {
     await promisify(fs.writeFile)(newFilepath, fileContent);
     if (fileExists) {
-      console.log("Updating file");
+      logger.debug(`Updating file: ${newFilepath}`);
     }
     if (!fileExists) {
-      console.log("Creating file");
+      logger.debug(`Creating file: ${newFilepath}`);
     }
   } catch (e) {
-    console.error(e);
+    logger.showError(e);
   }
 }
 
