@@ -13,10 +13,13 @@ import { Route } from "./route";
 import { Response } from "./response";
 import { Controller } from "./controllers";
 import { Policy } from "./policy";
+import { Dockerfile } from "./docker";
+import { CICD } from "./CI-CD";
 
 export class InitializeTypescript {
   private static spinner: Spinner = new Spinner("Initializing project setup");
   public static async init(metadata: PackageMetadata): Promise<void> {
+    await CICD.init();
     this.spinner.start();
     this.spinner.changeText("generating .eslintrc file");
     await this.generateEslintrc();
@@ -45,6 +48,8 @@ export class InitializeTypescript {
     await Policy.init();
     this.spinner.changeText("generating http server");
     await this.generateHTTPServer();
+    this.spinner.changeText("generating dockerfile");
+    await Dockerfile.init();
     this.spinner.changeText("installing dependency");
     await this.installDependencies();
   }

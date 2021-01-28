@@ -7,7 +7,8 @@ export enum Filename {
   PACKAGE_JSON = "package.json",
   TSCONFIG = "tsconfig.json",
   HTTP = "http.ts",
-  DOTENV = ".env"
+  DOTENV = ".env",
+  DOCKERFILE = "Dockerfile"
 }
 
 export enum ResponseFilename {
@@ -26,4 +27,8 @@ export enum ControllerFilename {
 
 export enum PolicyFilename {
   INDEX = "index.ts"
+}
+
+export enum GithubCICD {
+  BUILD = "build.yml"
 }

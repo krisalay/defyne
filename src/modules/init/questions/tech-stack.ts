@@ -1,4 +1,3 @@
-import { promises } from 'fs';
 import inquirer from "inquirer";
 
 import { TechStackValue, TechStackAnswer } from "../models/choice";
