@@ -6,14 +6,21 @@ import { InquirerOutput } from "../models/choice";
 import * as logger from "../../../utilities/logger";
 import * as filesystem from "../../../utilities/filesystem";
 import { TemplateGenerator } from "../../../utilities/template-generator";
+import { Defynerc, DEFYNERC_ATTRIBUTES } from "../../../utilities/defynerc";
 
 export class  CICD {
   private static dir: string = "/.github/workflows"
   public static async init(): Promise<void> {
     const cicdPlatform:InquirerOutput = await this.getCICDPlatform();
     logger.debug(`entered ${cicdPlatform.value} as CI/CD platform`);
-
-    await this.githubCICD();
+    switch (cicdPlatform.value) {
+      case "Github":
+        await this.githubCICD();
+        await Defynerc.update(DEFYNERC_ATTRIBUTES.CICD, cicdPlatform.value);
+        break;
+      default:
+        await Defynerc.update(DEFYNERC_ATTRIBUTES.CICD, false);
+    }
   }
 
   private static getCICDPlatform(): Promise<InquirerOutput> {
@@ -22,7 +29,7 @@ export class  CICD {
         name: "value",
         type: "list",
         message: "Select the CI/CD environment:",
-        choices: [{ name: "Github", value: "Github" }]
+        choices: [{ name: "Github", value: "Github" }, { name: "Not Required", value: "NR" }]
       }
     ]);   
   }

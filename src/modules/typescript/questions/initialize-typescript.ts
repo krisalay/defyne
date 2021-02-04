@@ -8,6 +8,7 @@ import { packages, devPackages } from "../models/packages";
 import { Filename } from "../models/file";
 
 import * as filesystem from "../../../utilities/filesystem";
+import { Defynerc, DEFYNERC_ATTRIBUTES } from "../../../utilities/defynerc";
 
 import { Route } from "./route";
 import { Response } from "./response";
@@ -71,42 +72,49 @@ export class InitializeTypescript {
     const filename: string = Filename.HTTP;
     const fileContent: string = await filesystem.readFile(path.join(__dirname, "..", "templates", "http.template"));
     await TemplateGenerator.createDefault(filename, fileContent, true, "/src");
+    await Defynerc.update(DEFYNERC_ATTRIBUTES.HTTP_SERVER, true);
   }
 
   private static async generateEslintrc(): Promise<void> {
     const filename: string = Filename.ESLINTRC;
     const fileContent: string = await filesystem.readFile(path.join(__dirname, "..", "templates", "eslintrc.template"));
     await TemplateGenerator.createDefault(filename, fileContent);
+    await Defynerc.update(DEFYNERC_ATTRIBUTES.ESLINTRC, true);
   }
 
   private static async generateEslintignore(): Promise<void> {
     const filename: string = Filename.ESLINT_IGNORE;
     const fileContent: string = await filesystem.readFile(path.join(__dirname, "..", "templates", "eslintignore.template"));
     await TemplateGenerator.createDefault(filename, fileContent);
+    await Defynerc.update(DEFYNERC_ATTRIBUTES.ESLINT_IGNORE, true);
   }
 
   private static async generateGitAttributes(): Promise<void> {
     const filename: string = Filename.GIT_ATTRIBUTES;
     const fileContent: string = await filesystem.readFile(path.join(__dirname, "..", "templates", "gitattributes.template"));
     await TemplateGenerator.createDefault(filename, fileContent);
+    await Defynerc.update(DEFYNERC_ATTRIBUTES.GIT_ATTRIBUTES, true);
   }
 
   private static async generateGitIgnore(): Promise<void> {
     const filename: string = Filename.GIT_IGNORE;
     const fileContent: string = await filesystem.readFile(path.join(__dirname, "..", "templates", "gitignore.template"));
     await TemplateGenerator.createDefault(filename, fileContent);
+    await Defynerc.update(DEFYNERC_ATTRIBUTES.GIT_IGNORE, true);
   }
 
   private static async generatePrettierrc(): Promise<void> {
     const filename: string = Filename.PRETTIERRC;
     const fileContent: string = await filesystem.readFile(path.join(__dirname, "..", "templates", "prettierrc.template"));
     await TemplateGenerator.createDefault(filename, fileContent);
+    await Defynerc.update(DEFYNERC_ATTRIBUTES.PRETTIERRC, true);
   }
 
   private static async generateTSConfig(): Promise<void> {
     const filename: string = Filename.TSCONFIG;
     const fileContent: string = await filesystem.readFile(path.join(__dirname, "..", "templates", "tsconfig.template"));
     await TemplateGenerator.createDefault(filename, fileContent);
+    await Defynerc.update(DEFYNERC_ATTRIBUTES.TSCONFIG, true);
   }
 
   private static async generatePackageJson(metadata: PackageMetadata): Promise<void> {
@@ -121,11 +129,13 @@ export class InitializeTypescript {
       version: metadata.version,
       author: metadata.author
     }));
+    await Defynerc.update(DEFYNERC_ATTRIBUTES.PACKAGE_JSON, true);
   }
 
   private static async generateDotenv(): Promise<void> {
     const filename: string = Filename.DOTENV;
     const fileContent: string = await filesystem.readFile(path.join(__dirname, "..", "templates", "dotenv.template"));
     await TemplateGenerator.createDefault(filename, fileContent);
+    await Defynerc.update(DEFYNERC_ATTRIBUTES.DOT_ENV, true);
   }
 }

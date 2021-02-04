@@ -36,7 +36,7 @@ export class Response {
     }
     logger.debug(`response message: ${message}`);
     const fileTemplate: string = await filesystem.readFile(path.join(__dirname, "..", "templates", "responses", "response.template"));
-    const fileContent: string = TemplateGenerator.fill(fileTemplate, { className, name: value, defaultMessage: message });
+    const fileContent: string = TemplateGenerator.fill(fileTemplate, { className, name: value, status: statusCode, defaultMessage: message });
     await TemplateGenerator.createDefault(filename, fileContent, true, this.responseDir);
   }
 
