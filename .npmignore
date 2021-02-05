@@ -11,7 +11,7 @@ src
 .yarnrc
 CONTRIBUTING.md
 Makefile
-README.md
+CHANGELOG.md
 ThirdPartyNotices.txt
 tsconfig.json
 yarn.lock
