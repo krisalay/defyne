@@ -1,0 +1,63 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { Router } from "express";
+
+import { Policy } from "../policies";
+
+export const router = Router();
+
+interface IRouteOptions {
+  endpoint: string;
+  policies?: Policy[];
+}
+
+export function get(options: IRouteOptions) {
+  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+    if (options.policies) {
+      router.get(options.endpoint, options.policies, target[String(propertyKey)]);
+    } else {
+      router.get(options.endpoint, target[String(propertyKey)]);
+    }
+  };
+}
+
+export function post(options: IRouteOptions) {
+  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+    if (options.policies) {
+      router.post(options.endpoint, options.policies, target[String(propertyKey)]);
+    } else {
+      router.post(options.endpoint, target[String(propertyKey)]);
+    }
+  };
+}
+
+export function put(options: IRouteOptions) {
+  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+    if (options.policies) {
+      router.put(options.endpoint, options.policies, target[String(propertyKey)]);
+    } else {
+      router.put(options.endpoint, target[String(propertyKey)]);
+    }
+  };
+}
+
+export function patch(options: IRouteOptions) {
+  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+    if (options.policies) {
+      router.patch(options.endpoint, options.policies, target[String(propertyKey)]);
+    } else {
+      router.patch(options.endpoint, target[String(propertyKey)]);
+    }
+  };
+}
+
+export function del(options: IRouteOptions) {
+  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+    if (options.policies) {
+      router.delete(options.endpoint, options.policies, target[String(propertyKey)]);
+    } else {
+      router.delete(options.endpoint, target[String(propertyKey)]);
+    }
+  };
+}

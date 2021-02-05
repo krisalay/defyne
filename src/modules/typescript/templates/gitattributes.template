@@ -1,0 +1,8 @@
+* text=auto
+
+LICENSE.txt eol=crlf
+ThirdPartyNotices.txt eol=crlf
+
+.gitignore  merge=union
+
+*.js text eol=crlf

@@ -1,0 +1,17 @@
+node_modules/
+scripts/
+src
+.editorconfig
+.eslintignore
+.eslintrc
+.gitattributes
+.gitignore
+.mailmap
+.prettierrc
+.yarnrc
+CONTRIBUTING.md
+Makefile
+CHANGELOG.md
+ThirdPartyNotices.txt
+tsconfig.json
+yarn.lock

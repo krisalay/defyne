@@ -1,0 +1,10 @@
+import { BaseError } from "./base-response";
+
+export class <%= className %> extends BaseError {
+  constructor(message: string) {
+    super(message);
+    this.name = "<%= name %>";
+    this.status = <%= status %>;
+    this.message = message || "<%= defaultMessage %>";
+  }
+}

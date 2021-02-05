@@ -1,0 +1,65 @@
+import dotenv = require("dotenv");
+import * as bodyParser from "body-parser";
+import express = require("express");
+import { ValidationError } from "joi";
+
+dotenv.config();
+import { configureRoutes } from "./routes";
+import { BaseError } from "./responses/base-response";
+
+const app: express.Application = express();
+app.enable("etag");
+app.set("etag", "strong");
+const normalizePort: (value: string | number) => number = (value: string | number) => {
+  const port = Number(value);
+  if (isNaN(port)) {
+    console.error("Port must have numeric value");
+    process.exit(1);
+  }
+  if (port > 0) return port;
+
+  console.error("Invalid port number");
+  process.exit(1);
+};
+
+export function run(): express.Application | undefined {
+  app.use(bodyParser.json({ limit: "5mb" }));
+  app.use(bodyParser.json({ type: "application/*+json", limit: "50mb" }));
+  app.use(
+    bodyParser.urlencoded({
+      extended: true,
+      limit: "5mb"
+    })
+  );
+
+  configureRoutes(app);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  app.use(async (err: BaseError & ValidationError, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (err.isJoi) {
+      err.status = 400;
+      err.message = err.details[0].message;
+    }
+    if (!err.status || err.status === 500) {
+      return res.status(err.status || 500).json({
+        name: err.name || "Error",
+        status: err.status || 500,
+        message: "Something went wrong"
+      });
+    }
+    res.status(err.status).json({
+      name: err.name || "Error",
+      status: err.status || 500,
+      message: err.message
+    });
+  });
+
+  const httpPort: number = normalizePort(process.env.PORT || 80);
+
+  if (process.env.NODE_ENV !== "test")
+    app.listen(httpPort, "0.0.0.0", () => {
+      console.info("Server started", { port: httpPort });
+    });
+
+  if (process.env.NODE_ENV === "test") return app;
+}
+if (process.env.NODE_ENV !== "test") run();
