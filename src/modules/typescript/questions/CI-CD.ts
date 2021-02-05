@@ -8,7 +8,7 @@ import * as filesystem from "../../../utilities/filesystem";
 import { TemplateGenerator } from "../../../utilities/template-generator";
 import { Defynerc, DEFYNERC_ATTRIBUTES } from "../../../utilities/defynerc";
 
-export class  CICD {
+export class CICD {
   private static dir: string = "/.github/workflows"
   public static async init(): Promise<void> {
     const cicdPlatform:InquirerOutput = await this.getCICDPlatform();
